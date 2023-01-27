@@ -49,27 +49,27 @@
 
 
 <style scoped lang="scss">
-    $颜色_橙色:#ffa366;
-    $颜色_暗橙色:#b38c72;
-    $颜色_灰色:#3b3b3b;
-    .maindiv {
-        background: $颜色_灰色;
-        height: 300px;
-        width: 600px;
+    // $颜色_橙色:#ffa366;
+    // $颜色_暗橙色:#b38c72;
+    // $颜色_灰色:#3b3b3b;
+    // .maindiv {
+    //     background: $颜色_灰色;
+    //     height: 300px;
+    //     width: 600px;
         
-    }
-    input{
-        height: 30px;
-        width: 400px;
-        color: $颜色_橙色;
-        background: $颜色_灰色;
-        // margin: 5px;
-    }
-    p.标题{
-        color: $颜色_橙色;
-        font-weight: bold;
-    }
-    span.描述{
-        color: $颜色_暗橙色;
-    }
+    // }
+    // input{
+    //     height: 30px;
+    //     width: 400px;
+    //     color: $颜色_橙色;
+    //     background: $颜色_灰色;
+    //     // margin: 5px;
+    // }
+    // p.标题{
+    //     color: $颜色_橙色;
+    //     font-weight: bold;
+    // }
+    // span.描述{
+    //     color: $颜色_暗橙色;
+    // }
 </style>

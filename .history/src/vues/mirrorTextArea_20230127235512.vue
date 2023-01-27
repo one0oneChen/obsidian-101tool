@@ -18,7 +18,6 @@
         placeholder="输入点什么..."
         :autofocus="true"
         :tabSize="tabSize"
-        :style="style"
         :indent-with-tab="indentWithTab"
         :spellcheck="spellcheck"
         :extensions="extensions"
@@ -28,6 +27,7 @@
     </template>
 
 <!--    
+    :style="style"
     @update="Change"
     :options="cm配置"
     :mode="mode"
@@ -126,7 +126,7 @@
     // 编辑器配置
     let spellcheck=ref(true)
     let indentWithTab=ref(true)
-    let style={ height: '100%' }
+    // let style={ height: '100%' }
     let tabSize=ref(4)
 
     let 当前语言=ref(app注入数据.使用语言)

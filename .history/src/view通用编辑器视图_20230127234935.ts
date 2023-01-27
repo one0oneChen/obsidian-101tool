@@ -8,6 +8,7 @@ import  Vue101tool  from "./main"
 export const VIEW_101_通用 = "101tool通用文件视图";
 export class View101_通用 extends TextFileView {
     plugin: any; 
+    vueold: any
 
     // 构造函数，当创建 "View101_通用" 实例时需要从外面传入一个 "View101tool" 实例
     constructor(leaf: WorkspaceLeaf, plugin: Vue101tool, ) {
@@ -36,31 +37,33 @@ export class View101_通用 extends TextFileView {
 
         emitter.on("emit监听语言主题切换", async (value:any)=>{
             console.log(`emit监听语言主题切换`)
+            await this.vueold.unmount()
             this.初始化vueApp({ mitt触发器:emitter, 
                 文件初始文本:this.data, 使用语言:value[0], 主题:value[1] })
         })
 
-        this.初始化vueApp({ mitt触发器:emitter, 
+
+        this.vueold=this.初始化vueApp({ mitt触发器:emitter, 
             文件初始文本:this.data, 
             使用语言: this.plugin.settings.默认语言,         //this.plugin.settings.语言
             主题: this.plugin.settings.默认主题})              //this.plugin.settings.语言
-
+        
     }
 
     初始化vueApp( app注入数据:object ){ //* 需要写在函数里,这样div容器和vueapp都是一次性的
         this.containerEl.innerHTML=""
-        let 临时容器=this.containerEl.createEl('div',);
-        临时容器.style.height='100%' //不加这句会导致codemirror滚动条消失
+        let 临时容器=this.containerEl.createEl('div', {attr:{style:""}});
         // console.log(`临时容器div的style: ${临时容器.style}`)
         let vueapp = createApp(codemirror) // 创建按钮vue实例
         vueapp.provide('app注入数据', app注入数据 ) //将对话款配置参数下传
-        // vueapp.mount(this.containerEl) // 将vue按钮实例挂载到容器元素
-        vueapp.mount(临时容器) //! 将vue按钮实例挂载到div元素codemirror会出错
-        // return vueapp
+        vueapp.mount(this.containerEl) // 将vue按钮实例挂载到容器元素
+        // this.vueapp.mount(临时容器) //! 将vue按钮实例挂载到div元素codemirror会出错
+        return vueapp
     }
     
     async clear() { //方法会在 Obsidian 卸载文件时重置视图。
-        this.containerEl.empty();
+        await this.vueold.unmount()
+        await this.containerEl.empty();
         this.data=""
     }
 

@@ -1,16 +1,16 @@
 <template>
     <!-- :indent-with-tab="true" 是否自动获取焦点-->
-    <div>
-        <n-dropdown trigger="hover" :options="语言下拉列表项目" 
-                    @select="处理语言下拉列表选择">
-            <n-button class="nbtn" secondary type="primary">语言: {{当前语言字符串}}</n-button>
-        </n-dropdown>
-        <n-dropdown trigger="hover" :options="主题下拉列表项目"
-            @select="处理主题下拉列表选择">
-            <n-button class="nbtn" secondary type="primary">
-                主题: {{当前主题字符串}}</n-button>
-        </n-dropdown>
-    </div>
+    <n-dropdown trigger="hover" :options="语言下拉列表项目" 
+                @select="处理语言下拉列表选择">
+        <n-button class="nbtn" secondary type="primary">语言: {{当前语言字符串}}</n-button>
+    </n-dropdown>
+    <n-dropdown trigger="hover" :options="主题下拉列表项目"
+        @select="处理主题下拉列表选择">
+        <n-button class="nbtn" secondary type="primary">
+            主题: {{当前主题字符串}}</n-button>
+    </n-dropdown>
+    <!-- <div>
+    </div> -->
 
     <Codemirror class="codemirror"
         ref="cm"
@@ -126,7 +126,7 @@
     // 编辑器配置
     let spellcheck=ref(true)
     let indentWithTab=ref(true)
-    let style={ height: '100%' }
+    let style=ref({ height: '100%' })
     let tabSize=ref(4)
 
     let 当前语言=ref(app注入数据.使用语言)
