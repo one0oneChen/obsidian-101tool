@@ -1,0 +1,12 @@
+/*
+这个SCSS文件将帮助在根目录中创建一个styles.css文件当你'dev'或'build'这个插件。
+
+css文件将包含在你的插件中当你的插件被启用时，在应用程序中可用。
+
+如果你的插件不需要CSS，删除这个文件。
+*/
+.vue_div {
+    border: 1px solid red;
+    color: #fff;
+    padding: 5px;
+    }

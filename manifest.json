@@ -1,10 +1,10 @@
 {
-  "id": "obsidian-vue-sample-plugin",
-  "name": "Vue Sample Plugin",
-  "version": "1.0.0",
+  "id": "obsidian-101tool",
+  "name": "101tool",
+  "version": "0.0.1",
   "minAppVersion": "0.9.12",
-  "description": "This is a Vue sample plugin for Obsidian. This plugin demonstrates some of the capabilities of the Obsidian API.",
-  "author": "Obsidian",
+  "description": "为OB开发的基于Vue的插件",
+  "author": "101",
   "authorUrl": "https://obsidian.md/about",
-  "isDesktopOnly": false
+  "isDesktopOnly": true
 }
