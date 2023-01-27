@@ -15,6 +15,7 @@ ctrl+p 打开命令面板后, 输入 101 然后会跳出来wiki链接转换命�
 enjoy it ~
 
 如果您觉得有用, 也欢迎打赏, 您的认可说不定能加速开发进度噢~
-<img src="src/鼓励.jpg" width="77" height="77">
+
+<img src="src/鼓励.jpg" width="256" height="256">
 
 
