@@ -1,5 +1,6 @@
 纪念性质的一刻, 这是我开发的第一个Obsidian插件, 特别感谢ob中文社区的两位大佬 
-[熊海 RealBigBrownBear](https://forum-zh.obsidian.md/u/%E7%86%8A%E6%B5%B7) 和 [renmu]([个人资料 - renmu - Obsidian 中文论坛](https://forum-zh.obsidian.md/u/renmu/summary)) 没有他们两位的帮助无法赶在春节假期完成这个插件~2023新年快乐~
+[熊海 RealBigBrownBear](https://forum-zh.obsidian.md/u/%E7%86%8A%E6%B5%B7) 和 [renmu]([个人资料 - renmu - Obsidian 中文论坛](https://forum-zh.obsidian.md/u/renmu/summary)) 没有他们两位的帮助无法赶在春节假期完成这个插件!
+**2023新年快乐~**
 这是一个用于编辑Obsidian的除了markdown文档以外的其他格式文件的插件, 使用很简单
 
 #### 功能1 101tool通用编辑器
