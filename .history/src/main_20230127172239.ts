@@ -88,8 +88,6 @@ const DEFAULT_SETTINGS: MyPluginSettings = {
     默认主题: 'light',
 }
 
-
-
 // 注册插件
 export default class Vue101tool extends Plugin {
     settings!: MyPluginSettings;
@@ -135,7 +133,7 @@ export default class Vue101tool extends Plugin {
                     editor.replaceSelection(字符串拼接)
                 };
                 modal_输入弹窗(this.app, "101tool_dataview汇总", 
-                    ['输入要汇总的文件/文件夹路径(例如:"02Note"):', 
+                    ['输入要汇总的文件/文件夹路径(例如:"02Note")含"号:', 
                     '输入要汇总的文件名关键词用,号隔开(eg:"代办","测试"):', 
                     '输入要汇总的行文本的开头字符串多个用,号隔开(eg:"#","- ["):',
                     '输入要汇总的行内文本的关键词多个用,号隔开(eg:"2023-01","板砖"):'

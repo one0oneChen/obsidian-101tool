@@ -88,8 +88,6 @@ const DEFAULT_SETTINGS: MyPluginSettings = {
     默认主题: 'light',
 }
 
-
-
 // 注册插件
 export default class Vue101tool extends Plugin {
     settings!: MyPluginSettings;
