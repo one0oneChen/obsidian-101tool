@@ -1,10 +1,10 @@
 {
   "id": "obsidian-101tool",
   "name": "101tool",
-  "version": "0.0.1",
-  "minAppVersion": "0.9.12",
+  "version": "0.1.1",
+  "minAppVersion": "0.15.9",
   "description": "为OB开发的基于Vue的插件",
   "author": "101",
-  "authorUrl": "https://obsidian.md/about",
+  "authorUrl": "https://gitee.com/one0oneChen/obsidian-101tool",
   "isDesktopOnly": true
 }
