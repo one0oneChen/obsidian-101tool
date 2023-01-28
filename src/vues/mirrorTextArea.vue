@@ -120,7 +120,7 @@
         },
         // 激活行背景色
         ".cm-activeLine": {
-            backgroundColor: "#B3C3E67A"
+            backgroundColor: "none"
         },
         // 激活序列的背景色
         ".cm-activeLineGutter": {
@@ -133,12 +133,12 @@
         // 选中的状态
         "&.cm-focused .cm-selectionBackground, ::selection": {
             backgroundColor: "#FFD95B",
-            color:'#383D46'
+            // color:'#383D46'
         },
         // 左侧侧边栏的颜色
         ".cm-gutters": {
             backgroundColor: "#ffeaa6",
-            color: "#777", //侧边栏文字颜色
+            color: "#777777", //侧边栏文字颜色
             border: "none"
         }
     }, { dark: true })

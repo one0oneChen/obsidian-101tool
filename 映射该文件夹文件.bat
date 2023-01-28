@@ -16,14 +16,17 @@ echo "当前工作目录是: %cd%"
 
 
 :: 设定文件夹映射 例子:mklink /j E:\Windows C:\Windows 这是在E盘建立C盘的映射快捷方式
-set OB库1=e:\101工作文件夹\.obsidian\plugins\101tool
-set OB库2=e:\团队共享同步\.obsidian\plugins\101tool
+set 工作OB库=e:\101工作文件夹\.obsidian\plugins\101tool
+set 团队OB库=e:\团队共享同步\.obsidian\plugins\101tool
 echo %OB库1%\main.js
 echo %cd%\main.js
 
-call:del_copy_file "%OB库1%\main.js" main.js
-call:del_copy_file "%OB库1%\manifest.json" manifest.json
-call:del_copy_file "%OB库1%\styles.css" styles.css
+call:del_copy_file "%工作OB库%\main.js" main.js
+call:del_copy_file "%工作OB库%\manifest.json" manifest.json
+call:del_copy_file "%工作OB库%\styles.css" styles.css
+call:del_copy_file "%团队OB库%\main.js" main.js
+call:del_copy_file "%团队OB库%\manifest.json" manifest.json
+call:del_copy_file "%团队OB库%\styles.css" styles.css
 
 
 pause
