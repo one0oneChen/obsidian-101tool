@@ -4,6 +4,8 @@
 **ChangeLog**
 
 0.1.1 2023-01-28 亮色主题和暗色主题统一语法高亮模型, 调整亮色模式配色, 增加了自定义字体功能
+<img src="res/fontset.png" width="100%" height="100%">
+
 
 ---
 
@@ -20,7 +22,7 @@
 
 #### 功能1 101tool通用编辑器
 在设置页面的文本输入框里, 加入你需要打开的格式, 然后关闭插件再次打开即可. 下拉列表可以选择默认的语言和主题, 及时生效
-<img src="src/show1.gif" width="100%" height="100%">
+<img src="res/show1.gif" width="100%" height="100%">
 
 #### 功能2 Obsidian内的`[[]]`形式的链接转为`[]()`
 这个命令只是简单的把markdown文件里, 选择的文本中的 ob特有的 `[[]]` 类型的链接转为 `[]()` , 开
@@ -33,6 +35,6 @@ enjoy it ~
 
 如果您觉得有用, 也欢迎打赏, 您的认可说不定能加速开发进度噢~
 
-<img src="src/鼓励.jpg" width="256" height="256">
+<img src="res/鼓励.jpg" width="256" height="256">
 
 
