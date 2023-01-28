@@ -1,7 +1,8 @@
 国内可以访问Gitee:https://gitee.com/one0oneChen/obsidian-101tool
 
 
-ChangeLog
+**ChangeLog**
+
 0.1.1 2023-01-28 亮色主题和暗色主题统一语法高亮模型, 增加了自定义字体功能
 
 ---
