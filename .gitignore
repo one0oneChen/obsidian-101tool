@@ -7,7 +7,7 @@
 
 # npm
 node_modules
-node_modules*.*
+node_modules*.zip
 
 # Don't include the compiled main.js and styles.css file in the repo.
 # They should be uploaded to GitHub releases instead.
