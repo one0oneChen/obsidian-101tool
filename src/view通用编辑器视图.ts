@@ -50,17 +50,18 @@ export class View101_通用 extends TextFileView {
     初始化vueApp( app注入数据:object ){ //* 需要写在函数里,这样div容器和vueapp都是一次性的
         this.containerEl.innerHTML=""
         let 临时容器=this.containerEl.createEl('div',);
-        临时容器.style.height='100%' //不加这句会导致codemirror滚动条消失
+        临时容器.style.height='100%' //! 不加这句会导致codemirror滚动条消失
         // console.log(`临时容器div的style: ${临时容器.style}`)
         let vueapp = createApp(codemirror) // 创建按钮vue实例
         vueapp.provide('app注入数据', app注入数据 ) //将对话款配置参数下传
         // vueapp.mount(this.containerEl) // 将vue按钮实例挂载到容器元素
-        vueapp.mount(临时容器) //! 将vue按钮实例挂载到div元素codemirror会出错
+        vueapp.mount(临时容器) 
         // return vueapp
     }
     
     async clear() { //方法会在 Obsidian 卸载文件时重置视图。
         this.containerEl.empty();
+        console.log("clear()")
         this.data=""
     }
 
