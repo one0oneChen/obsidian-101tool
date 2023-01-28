@@ -2,6 +2,12 @@
 .vscode 
 .history
 
+# git
+.gitignore
+
+# bat
+*.bat
+
 # Intellij
 *.iml
 .idea
