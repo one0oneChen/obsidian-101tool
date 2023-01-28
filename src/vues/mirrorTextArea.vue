@@ -3,11 +3,11 @@
     <div>
         <n-dropdown trigger="hover" :options="语言下拉列表项目" 
                     @select="处理语言下拉列表选择">
-            <n-button class="nbtn" secondary type="primary">语言: {{当前语言字符串}}</n-button>
+            <n-button class="codemirror_nbtn" secondary type="primary">语言: {{当前语言字符串}}</n-button>
         </n-dropdown>
         <n-dropdown trigger="hover" :options="主题下拉列表项目"
             @select="处理主题下拉列表选择">
-            <n-button class="nbtn" secondary type="primary">
+            <n-button class="codemirror_nbtn" secondary type="primary">
                 主题: {{当前主题字符串}}</n-button>
         </n-dropdown>
     </div>
@@ -38,8 +38,8 @@
 -->
 <script lang="ts" setup>
     import { Codemirror } from "vue-codemirror";
-    import { basicSetup } from "codemirror"
-    import { oneDark } from "@codemirror/theme-one-dark";
+    import { syntaxHighlighting } from '@codemirror/language';
+    import { oneDarkHighlightStyle } from "@codemirror/theme-one-dark";
     // 语法高亮等语言支持
     import { python } from "@codemirror/lang-python";
     import { cpp } from "@codemirror/lang-cpp";
@@ -57,17 +57,7 @@
     import { php } from "@codemirror/lang-php";
     import { json } from "@codemirror/lang-json";
     import { sql } from "@codemirror/lang-sql";
-    
-    // 高级编辑功能
-    // 搜索功能
-    // find:Ctrl-F (PC), Cmd-F (Mac)
-    // findNext:Ctrl-G (PC), Cmd-G (Mac)
-    // findPrev:Shift-Ctrl-G (PC), Shift-Cmd-G (Mac)
-    // replace:Shift-Ctrl-F (PC), Cmd-Alt-F (Mac)
-    // replaceAll:Shift-Ctrl-R (PC), Shift-Cmd-Alt-F (Mac)
-    import { EditorState } from '@codemirror/state';
-    // import '@codemirror/autocomplete'
-    import '@codemirror/search'
+
     // import '@codemirror/merge'
 
     // 导入主题自定义配置的模块
@@ -76,42 +66,6 @@
     // naive组件
     import { NButton, NDropdown } from "naive-ui"
 
-    // vue-codemirror目前么有亮色主题, 所以自定义亮色主题
-    let myTheme = EditorView.theme({
-        // 输入的字体颜色
-        "&": {
-            color: "#0052D9",
-            backgroundColor: "rgb(255, 251, 231)"
-        },
-        ".cm-content": {
-            caretColor: "#0052D9",
-        },
-        // 激活行背景色
-        ".cm-activeLine": {
-            backgroundColor: "rgb(241, 231, 180)"
-        },
-        // 激活序列的背景色
-        ".cm-activeLineGutter": {
-            backgroundColor: "#FAFAFA"
-        },
-        //光标的颜色
-        "&.cm-focused .cm-cursor": {
-            borderLeftColor: "#0052D9"
-        },
-        // 选中的状态
-        "&.cm-focused .cm-selectionBackground, ::selection": {
-            backgroundColor: "#0052D9",
-            color:'#999'
-        },
-        // 左侧侧边栏的颜色
-        ".cm-gutters": {
-            backgroundColor: "#ffeaa6",
-            color: "#777", //侧边栏文字颜色
-            border: "none"
-        }
-    }, { dark: true })
-
-    
 
     interface IProps {
         height?: string,
@@ -120,13 +74,14 @@
     const props = withDefaults(defineProps<IProps>(), {
         height: '400px'
     })
+
     // 从父级直接注入的数据
     const app注入数据:any = inject('app注入数据')
 
     // 编辑器配置
     let spellcheck=ref(true)
     let indentWithTab=ref(true)
-    let style={ height: '100%' }
+    let style={ height: '100%',}
     let tabSize=ref(4)
 
     let 当前语言=ref(app注入数据.使用语言)
@@ -151,9 +106,114 @@
         'json':json(),
         'sql':sql(),
     }
+    
+    // vue-codemirror目前么有亮色主题, 所以自定义亮色主题
+    let myThemelight = EditorView.theme({
+        // 输入的字体颜色
+        "&": {
+            color: "#0052D9",
+            backgroundColor: "#FFFAEE"
+        },
+        ".cm-content": {
+            fontFamily: app注入数据.字体,
+            caretColor: "#0052D9",
+        },
+        // 激活行背景色
+        ".cm-activeLine": {
+            backgroundColor: "rgb(241, 231, 180)"
+        },
+        // 激活序列的背景色
+        ".cm-activeLineGutter": {
+            backgroundColor: "#0050FD"
+        },
+        //光标的颜色
+        "&.cm-focused .cm-cursor": {
+            borderLeftColor: "#0052D9"
+        },
+        // 选中的状态
+        "&.cm-focused .cm-selectionBackground, ::selection": {
+            backgroundColor: "#0052D9",
+            color:'#999'
+        },
+        // 左侧侧边栏的颜色
+        ".cm-gutters": {
+            backgroundColor: "#ffeaa6",
+            color: "#777", //侧边栏文字颜色
+            border: "none"
+        }
+    })
+    
+    //----------------------- onedark ----------------------
+    const ivory = "#abb2bf", stone = "#7d8799", // Brightened compared to original to increase contrast
+        darkBackground = "#21252b", highlightBackground = "#2c313a", 
+        background = "#282c34", tooltipBackground = "#353a42", 
+        selection = "#3E4451", cursor = "#528bff";
+    
+    let myThemedark = EditorView.theme({
+        "&": {
+            color: ivory,
+            backgroundColor: background
+        },
+        ".cm-content": {
+            fontFamily: app注入数据.字体,
+            caretColor: cursor
+        },
+        ".cm-cursor, .cm-dropCursor": { borderLeftColor: cursor },
+        "&.cm-focused .cm-selectionBackground, .cm-selectionBackground, .cm-content ::selection": { backgroundColor: selection },
+        ".cm-panels": { backgroundColor: darkBackground, color: ivory },
+        ".cm-panels.cm-panels-top": { borderBottom: "2px solid black" },
+        ".cm-panels.cm-panels-bottom": { borderTop: "2px solid black" },
+        ".cm-searchMatch": {
+            backgroundColor: "#72a1ff59",
+            outline: "1px solid #457dff"
+        },
+        ".cm-searchMatch.cm-searchMatch-selected": {
+            backgroundColor: "#6199ff2f"
+        },
+        ".cm-activeLine": { backgroundColor: "#6699ff0b" },
+        ".cm-selectionMatch": { backgroundColor: "#aafe661a" },
+        "&.cm-focused .cm-matchingBracket, &.cm-focused .cm-nonmatchingBracket": {
+            backgroundColor: "#bad0f847",
+            outline: "1px solid #515a6b"
+        },
+        ".cm-gutters": {
+            backgroundColor: background,
+            color: stone,
+            border: "none"
+        },
+        ".cm-activeLineGutter": {
+            backgroundColor: highlightBackground
+        },
+        ".cm-foldPlaceholder": {
+            backgroundColor: "transparent",
+            border: "none",
+            color: "#ddd"
+        },
+        ".cm-tooltip": {
+            border: "none",
+            backgroundColor: tooltipBackground
+        },
+        ".cm-tooltip .cm-tooltip-arrow:before": {
+            borderTopColor: "transparent",
+            borderBottomColor: "transparent"
+        },
+        ".cm-tooltip .cm-tooltip-arrow:after": {
+            borderTopColor: tooltipBackground,
+            borderBottomColor: tooltipBackground
+        },
+        ".cm-tooltip-autocomplete": {
+            "& > ul > li[aria-selected]": {
+                backgroundColor: highlightBackground,
+                color: ivory
+            }
+        }
+    }, { dark: true });
+
+    let themeLight=[myThemelight, syntaxHighlighting(oneDarkHighlightStyle)]
+    let themeDark=[myThemedark, syntaxHighlighting(oneDarkHighlightStyle)]
     const 主题字典: {[key:string]:any}={
-        'dark': oneDark,
-        'light': myTheme,
+        'dark': themeDark,
+        'light': themeLight,
     }
     let extensions=[语言字典[当前语言字符串], 主题字典[当前主题字符串]]
 
@@ -199,16 +259,19 @@
 
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 $颜色_橙色:#b1a16d;
 $颜色_绿色:#00ff00;
 $yanse: #b1a16d;
 
-
-.nbtn {
+.codemirror_nbtn {
     color: $颜色_橙色;
     // border: 1px solid $颜色_橙色;
     border: none;
 }
+
+.cm-content {
+    font-family: "宋体,'FiraCode NF'";
+    }
 
 </style>

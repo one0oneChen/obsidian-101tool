@@ -81,11 +81,13 @@ interface MyPluginSettings {
     fileEnds: string;
     默认语言: string;
     默认主题: string;
+    默认字体?: string;
 }
 const DEFAULT_SETTINGS: MyPluginSettings = {
     fileEnds: 'txt,py,json,html,vue,ts,js,c,cpp,h,xml,java,bat,csv',
     默认语言: 'cpp',
     默认主题: 'light',
+    默认字体: 'FiraCode NF',
 }
 
 

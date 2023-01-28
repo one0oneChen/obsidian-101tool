@@ -1,4 +1,4 @@
-import { App,TextFileView, WorkspaceLeaf } from "obsidian";
+import { TextFileView, WorkspaceLeaf } from "obsidian";
 import { createApp } from "vue"
 import mitt from "mitt"
 import codemirror from "./vues/mirrorTextArea.vue"
@@ -37,13 +37,17 @@ export class View101_通用 extends TextFileView {
         emitter.on("emit监听语言主题切换", async (value:any)=>{
             console.log(`emit监听语言主题切换`)
             this.初始化vueApp({ mitt触发器:emitter, 
-                文件初始文本:this.data, 使用语言:value[0], 主题:value[1] })
+                文件初始文本:this.data, 使用语言:value[0], 主题:value[1],
+                字体: this.plugin.settings.默认字体,
+            })
         })
 
         this.初始化vueApp({ mitt触发器:emitter, 
             文件初始文本:this.data, 
             使用语言: this.plugin.settings.默认语言,         //this.plugin.settings.语言
-            主题: this.plugin.settings.默认主题})              //this.plugin.settings.语言
+            主题: this.plugin.settings.默认主题,
+            字体: this.plugin.settings.默认字体,
+        })              //this.plugin.settings.语言
 
     }
 
@@ -51,6 +55,7 @@ export class View101_通用 extends TextFileView {
         this.containerEl.innerHTML=""
         let 临时容器=this.containerEl.createEl('div',);
         临时容器.style.height='100%' //! 不加这句会导致codemirror滚动条消失
+        // 临时容器.style.fontFamily="FiraCode NF" //设置字体
         // console.log(`临时容器div的style: ${临时容器.style}`)
         let vueapp = createApp(codemirror) // 创建按钮vue实例
         vueapp.provide('app注入数据', app注入数据 ) //将对话款配置参数下传
@@ -69,3 +74,5 @@ export class View101_通用 extends TextFileView {
         return VIEW_101_通用;
     }
 }
+
+

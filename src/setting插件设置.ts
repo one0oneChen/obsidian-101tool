@@ -33,7 +33,19 @@ export class Vue101tool设置页 extends PluginSettingTab {
                         await this.plugin.保存设置参数();
                     })
                 });
-
+        
+        let 设置字体:any =this.plugin.settings.默认字体
+        new Setting(containerEl)
+            .setName('设置默认字体') // 设置项的栏目名
+            .setDesc('设置编辑器默认字体(eg:\'FiraCode NF\',黑体,宋体):') // 对设置项的描述文字
+            .addText(text => text //使用addTextArea元素而非addText以支持文本框输入
+            .setValue(设置字体)
+            .onChange(async (value) => {
+                console.log('用户输入: ' + value);
+                this.plugin.settings.默认字体 = value;
+                await this.plugin.保存设置参数();
+            }));
+        
         new Setting(containerEl)
             .setName('设置默认语言') // 设置项的栏目名
             .setDesc('设置编辑器默认语言:') // 对设置项的描述文字
@@ -81,6 +93,7 @@ export class Vue101tool设置页 extends PluginSettingTab {
                 this.plugin.settings.默认主题 = value;
                 await this.plugin.保存设置参数();
             }));
+        
         
         // let madiv=containerEl.createEl('div')
         // let 打赏说明='如果你觉得插件有价值,想要打赏,可用微信扫描打赏码,\n感谢您的认可,祝您生活愉快~'
