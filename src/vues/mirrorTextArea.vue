@@ -111,7 +111,7 @@
     let myThemelight = EditorView.theme({
         // 输入的字体颜色
         "&": {
-            color: "#0052D9",
+            color: "#383D46",
             backgroundColor: "#FFFAEE"
         },
         ".cm-content": {
@@ -120,20 +120,20 @@
         },
         // 激活行背景色
         ".cm-activeLine": {
-            backgroundColor: "rgb(241, 231, 180)"
+            backgroundColor: "#B3C3E67A"
         },
         // 激活序列的背景色
         ".cm-activeLineGutter": {
-            backgroundColor: "#0050FD"
+            backgroundColor: "#B3C3E67A"
         },
         //光标的颜色
         "&.cm-focused .cm-cursor": {
-            borderLeftColor: "#0052D9"
+            borderLeftColor: "#2F3338"
         },
         // 选中的状态
         "&.cm-focused .cm-selectionBackground, ::selection": {
-            backgroundColor: "#0052D9",
-            color:'#999'
+            backgroundColor: "#FFD95B",
+            color:'#383D46'
         },
         // 左侧侧边栏的颜色
         ".cm-gutters": {
@@ -141,7 +141,7 @@
             color: "#777", //侧边栏文字颜色
             border: "none"
         }
-    })
+    }, { dark: true })
     
     //----------------------- onedark ----------------------
     const ivory = "#abb2bf", stone = "#7d8799", // Brightened compared to original to increase contrast
