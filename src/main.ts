@@ -2,6 +2,7 @@ import { App, Editor, MarkdownView, Notice, Plugin, WorkspaceLeaf } from 'obsidi
 import { Vue101tool设置页 } from "./setting插件设置"
 import { 消息弹窗, 输入弹窗, vue输入弹窗 } from "./modal对话框";
 import { View101_通用,VIEW_101_通用, } from './view通用编辑器视图';
+import { VIEW_101_3Deditor页面,View101_3Deditor页面 } from './view3D视图';
 
 
 // 函数区
@@ -50,16 +51,6 @@ function editor_替换wiki链接(editor: Editor, view: MarkdownView){
     return 替换后文本
 }
 
-function ribbon_创建侧边栏图标(父级: Plugin){
-    // 这将在左侧ribbon中创建一个图标。
-    const ribbonIconEl = 父级.addRibbonIcon('dice', '图标悬浮提示文本', (evt: MouseEvent) => {
-        // 当用户单击图标时调用。
-        print('This is a notice! 点击了图标!');
-    });
-    // 使用色带执行其他操作
-    ribbonIconEl.addClass('my-plugin-ribbon-class');
-}
-
 function modal_消息弹窗(app实例: App, msg:string){
     new 消息弹窗(app实例, msg).open();
 }
@@ -70,11 +61,6 @@ function modal_输入弹窗(app实例: App, 输入标题:string, 输入描述数
     new 输入弹窗(app实例, 回调函数, 输入标题, 输入描述数组).open();
 }
 
-function modal_vue输入弹窗(app实例: App,  对话框配置: Array<object>, 
-                            回调函数:(array: Array<any>)=>any) {
-    // 函数使用说明文档
-    new vue输入弹窗(app实例, 对话框配置, 回调函数).open()
-}
 
 // 注册插件的各参数变量
 interface MyPluginSettings {
@@ -82,12 +68,16 @@ interface MyPluginSettings {
     默认语言: string;
     默认主题: string;
     默认字体?: string;
+    默认亮色主题背景?: string
+    默认3D编辑器: string
 }
 const DEFAULT_SETTINGS: MyPluginSettings = {
     fileEnds: 'txt,py,json,html,vue,ts,js,c,cpp,h,xml,java,bat,csv',
     默认语言: 'cpp',
-    默认主题: 'light',
+    默认主题: 'dark',
     默认字体: "'FiraCode NF'",
+    默认亮色主题背景: "#FFFAEE",
+    默认3D编辑器: "SketchUp",
 }
 
 
@@ -101,7 +91,7 @@ export default class Vue101tool extends Plugin {
         this.addSettingTab(new Vue101tool设置页(this.app, this)) //* 注册一个插件设置页
         await this.设置插件默认参数();
 
-        // 注册自定义的编辑器视图
+        //------------------------ 注册自定义的编辑器视图-----------------------------
         // this.registerView(VIEW_101_CSV, (leaf: WorkspaceLeaf)=> new View101_CSV(leaf))
         this.registerView(VIEW_101_通用, (leaf: WorkspaceLeaf)=> new View101_通用(leaf, this))
         // 使用插件设置的后缀参数来 关联后缀与自定义编辑器
@@ -109,9 +99,17 @@ export default class Vue101tool extends Plugin {
         for (let i of 支持文件后缀列表){
             this.registerExtensions([i], VIEW_101_通用);
         }
-        
-        // ribbon_创建侧边栏图标(this)
 
+        this.registerView(VIEW_101_3Deditor页面, (leaf: WorkspaceLeaf)=> new View101_3Deditor页面(leaf, this))
+        this.registerExtensions(['fbx'], VIEW_101_3Deditor页面);
+
+        //------------------------ 左侧图标按钮-------------------------
+        this.addRibbonIcon('box', '打开101tool3Deditor', (evt: MouseEvent) => {
+            // 当用户单击图标时调用
+            this.打开3Deditor视图()
+        });
+
+        //----------------------- 注册命令到命令面板 ----------------------
         this.addCommand({ //* 这将添加一个编辑器命令，可以对当前编辑器实例执行某些操作
             id: '101tool_转wiki为标准链接',
             name: '101tool_转wiki为标准链接',
@@ -177,13 +175,29 @@ export default class Vue101tool extends Plugin {
     }
 
     onunload() { //* 插件被禁用时触发的函数
-        // this.app.workspace.detachLeavesOfType(VIEW_101_通用);
+        this.app.workspace.detachLeavesOfType(VIEW_101_通用);
+        this.app.workspace.detachLeavesOfType(VIEW_101_3Deditor页面);
+    }
+
+    async 打开3Deditor视图(){
+        this.app.workspace.detachLeavesOfType(VIEW_101_3Deditor页面); //根据视图名称字符串卸载视图
+        // await this.app.workspace.getRightLeaf(false).setViewState({ //getRightLeaf(真假值) 值为真时新建的视图窗口会跑到右侧栏的最底部,为假时则在上部
+        //     type: VIEW_101_3Deditor页面,
+        //     active: true,
+        // });
+        print(`正在打开3Deditor:${this.settings.默认3D编辑器},请耐心等待...`)
+        await this.app.workspace.getLeaf(true).setViewState({ //getLeaf(真假值) 值为真时新建视图窗口
+            type: VIEW_101_3Deditor页面,
+            active: true,
+        });
+        this.app.workspace.revealLeaf( //展示视图输入参数为视图对象
+            this.app.workspace.getLeavesOfType(VIEW_101_3Deditor页面)[0] //根据视图名称来返回leaf视图对象
+        );
     }
 
     async 设置插件默认参数() {
         let datajson=await this.loadData()
         this.settings = Object.assign({}, DEFAULT_SETTINGS, datajson);
-
     }
 
     async 保存设置参数() {

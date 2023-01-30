@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "vue-tsc --noEmit && vite build --watch",
     "build": "vue-tsc --noEmit && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "htmlserver": "vite",
+    "test": "mocha --reporter list"
   },
   "dependencies": {
     "@codemirror/autocomplete": "^6.4.0",
@@ -35,23 +37,28 @@
     "@codemirror/state": "6.x",
     "@codemirror/theme-one-dark": "^6.1.0",
     "@codemirror/view": "^6.7.3",
+    "ant-design-vue": "^3.2.15",
     "codemirror": "^6.0.1",
     "mitt": "^3.0.0",
     "vue": "^3.2.37",
-    "vue-codemirror": "^6.1.1"
+    "vue-codemirror": "^6.1.1",
+    "vue-router": "^4.1.6"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^22.0.2",
     "@rollup/plugin-node-resolve": "^13.3.0",
     "@rollup/plugin-typescript": "^8.4.0",
+    "@types/three": "^0.148.1",
     "@vitejs/plugin-vue": "^3.0.3",
+    "mocha": "^10.2.0",
     "naive-ui": "^2.34.3",
     "obsidian": "^0.12.2",
     "sass": "^1.54.8",
+    "three": "^0.149.0",
     "tslib": "^2.2.0",
     "typescript": "^4.6.4",
     "vite": "^3.0.7",
-    "vue-tsc": "^0.39.5"
+    "vue-tsc": "^1.0.9"
   },
   "exports": {
     ".": {

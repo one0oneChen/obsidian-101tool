@@ -7,12 +7,13 @@ import commonjs from "@rollup/plugin-commonjs";
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  define: { 'process.env': {} },
   plugins: [vue()],
-  // resolve: {
-  //   alias: {
-  //     'vue': 'vue/dist/vue.esm-bundler.js'
-  //   }
-  // },
+  resolve: {
+    alias: {
+      'vue': 'vue/dist/vue.esm-bundler.js'
+    }
+  },
   build: {
     lib: {
       entry: resolve(__dirname, "src/main.ts"),

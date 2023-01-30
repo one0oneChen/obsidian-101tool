@@ -1,10 +1,10 @@
 {
   "id": "obsidian-101tool",
   "name": "101tool",
-  "version": "0.1.1",
+  "version": "0.2.1",
   "minAppVersion": "0.15.9",
-  "description": "为OB开发的基于Vue的插件",
+  "description": "为OB提供非markdown其他格式文件明文文本编辑等功能",
   "author": "101",
-  "authorUrl": "https://gitee.com/one0oneChen/obsidian-101tool",
+  "authorUrl": "https://gitee.com/ilogistics/obsidian-101tool",
   "isDesktopOnly": true
 }

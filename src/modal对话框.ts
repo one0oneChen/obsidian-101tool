@@ -110,3 +110,4 @@ export class 输入弹窗 extends Modal {
     }
 }
 
+export const dataview字符串=""

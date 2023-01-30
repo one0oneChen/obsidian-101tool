@@ -1,17 +1,30 @@
 <template>
     <!-- :indent-with-tab="true" 是否自动获取焦点-->
-    <div>
+    <div style="{height:'36px'}">
         <n-dropdown trigger="hover" :options="语言下拉列表项目" 
                     @select="处理语言下拉列表选择">
-            <n-button class="codemirror_nbtn" secondary type="primary">语言: {{当前语言字符串}}</n-button>
+            <n-button class="codemirror_nbtn" secondary type="primary">语言: {{当前语言}}</n-button>
         </n-dropdown>
         <n-dropdown trigger="hover" :options="主题下拉列表项目"
             @select="处理主题下拉列表选择">
             <n-button class="codemirror_nbtn" secondary type="primary">
-                主题: {{当前主题字符串}}</n-button>
+                主题: {{当前主题}}</n-button>
         </n-dropdown>
+        <span v-if="当前主题=='light'" class="codemirror_nbtn">
+            背景色:
+            <n-color-picker class="lightbgcolor"
+                :swatches="['#FFFFFF','#18A058','#2080F0','#F0A020','#FFFAEE']" 
+                :show-preview="true"
+                :modes="['hex', 'rgb', 'hsl']"
+                :default-value="当前亮色模式背景色"
+                :on-update-value="改变亮色模式背景色"
+                :placement="'bottom'"
+            />
+        </span>
+        <!-- :style="{display:'inline'}" -->
+        
     </div>
-
+    
     <Codemirror class="codemirror"
         ref="cm"
         v-model="code" 
@@ -22,10 +35,10 @@
         :indent-with-tab="indentWithTab"
         :spellcheck="spellcheck"
         :extensions="extensions"
-        @change="Change"
-        @blur="Change" 
-        />
-    </template>
+        @change="cmChange"
+        @blur="cmChange" 
+    />
+</template>
 
 <!--    
     @update="Change"
@@ -64,7 +77,7 @@
     import { EditorView } from "@codemirror/view"
     import { ref,inject, } from "vue";
     // naive组件
-    import { NButton, NDropdown } from "naive-ui"
+    import { NButton, NDropdown, NColorPicker } from "naive-ui"
 
 
     interface IProps {
@@ -81,13 +94,11 @@
     // 编辑器配置
     let spellcheck=ref(true)
     let indentWithTab=ref(true)
-    let style={ height: '100%',}
+    let style={ height: `${window.innerHeight-(36*2)}px`,}
     let tabSize=ref(4)
 
     let 当前语言=ref(app注入数据.使用语言)
-    let 当前语言字符串=当前语言.value
     let 当前主题=ref(app注入数据.主题)
-    let 当前主题字符串=当前主题.value
     const 语言字典: {[key:string]:any}={
         'python':python(),
         'cpp':cpp(),
@@ -106,17 +117,18 @@
         'json':json(),
         'sql':sql(),
     }
-    
+    let 当前亮色模式背景色=app注入数据.亮色模式背景色
+
     // vue-codemirror目前么有亮色主题, 所以自定义亮色主题
     let myThemelight = EditorView.theme({
         // 输入的字体颜色
         "&": {
             color: "#383D46",
-            backgroundColor: "#FFFAEE"
+            backgroundColor: 当前亮色模式背景色
         },
         ".cm-content": {
             fontFamily: app注入数据.字体,
-            caretColor: "#0052D9",
+            caretColor: 当前亮色模式背景色,
         },
         // 激活行背景色
         ".cm-activeLine": {
@@ -215,19 +227,14 @@
         'dark': themeDark,
         'light': themeLight,
     }
-    let extensions=[语言字典[当前语言字符串], 主题字典[当前主题字符串]]
+    let extensions=[语言字典[当前语言.value], 主题字典[当前主题.value]]
 
 
     // 设置代码初始文本
     const code = ref(app注入数据.文件初始文本);
 
-    let 当前选择:any=ref("")
-    function Change(){ //当 code 被修改时就触发返回code的值并存储
-        // console.log('101tool>View101_通用>vueapp>codemirror>change')
+    function cmChange(){ //当 code 被修改时就触发返回code的值并存储
         app注入数据.mitt触发器.emit("emit监听文件修改", code.value)
-        // 
-        // let 编辑器状态=EditorState.create()
-        // 当前选择=编辑器状态.selection
     }
     
     //----------------------- 下拉列表 ----------------------
@@ -246,20 +253,25 @@
     }
 
     function 处理语言下拉列表选择(key: string|number){
-        当前语言字符串=String(key)
-        app注入数据.mitt触发器.emit("emit监听语言主题切换", [当前语言字符串, 当前主题字符串])
+        当前语言.value=String(key)
+        app注入数据.mitt触发器.emit("emit监听语言主题切换", [当前语言.value, 当前主题.value, 当前亮色模式背景色])
     }
     function 处理主题下拉列表选择(key: string|number){
-        当前主题字符串=String(key)
-        app注入数据.mitt触发器.emit("emit监听语言主题切换", [当前语言字符串, 当前主题字符串])
+        当前主题.value=String(key)
+        app注入数据.mitt触发器.emit("emit监听语言主题切换", [当前语言.value, 当前主题.value, 当前亮色模式背景色])
+    }
+    function 改变亮色模式背景色(value: string){
+        当前亮色模式背景色=value
+        console.log(`当前亮色模式背景色:${当前亮色模式背景色}`)
+        app注入数据.mitt触发器.emit("emit监听语言主题切换", [当前语言.value, 当前主题.value, 当前亮色模式背景色])
     }
 
-    // 配置编辑器高级功能
-    // Codemirror EditorView instance ref
+    //----------------------- 处理颜色选择器 ----------------------
+
 
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 $颜色_橙色:#b1a16d;
 $颜色_绿色:#00ff00;
 $yanse: #b1a16d;
@@ -269,9 +281,13 @@ $yanse: #b1a16d;
     // border: 1px solid $颜色_橙色;
     border: none;
 }
-
-.cm-content {
-    font-family: "宋体,'FiraCode NF'";
-    }
+.lightbgcolor {
+    display: inline;
+    height: 36px; 
+    width: 50px;
+    border: none;
+    padding: 0px;
+    margin: 0px;
+}
 
 </style>

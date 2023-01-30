@@ -36,17 +36,23 @@ export class View101_通用 extends TextFileView {
 
         emitter.on("emit监听语言主题切换", async (value:any)=>{
             console.log(`emit监听语言主题切换`)
+            // 修改插件的设定值并保存到插件目录下的data.json
+            this.plugin.settings.默认亮色主题背景=value[2]
+            this.plugin.saveData(this.plugin.settings)
+
             this.初始化vueApp({ mitt触发器:emitter, 
-                文件初始文本:this.data, 使用语言:value[0], 主题:value[1],
+                文件初始文本:this.data, 
                 字体: this.plugin.settings.默认字体,
+                使用语言:value[0], 主题:value[1], 亮色模式背景色:value[2],
             })
         })
 
         this.初始化vueApp({ mitt触发器:emitter, 
             文件初始文本:this.data, 
+            字体: this.plugin.settings.默认字体,
             使用语言: this.plugin.settings.默认语言,         //this.plugin.settings.语言
             主题: this.plugin.settings.默认主题,
-            字体: this.plugin.settings.默认字体,
+            亮色模式背景色: this.plugin.settings.默认亮色主题背景,
         })              //this.plugin.settings.语言
 
     }
@@ -54,7 +60,7 @@ export class View101_通用 extends TextFileView {
     初始化vueApp( app注入数据:object ){ //* 需要写在函数里,这样div容器和vueapp都是一次性的
         this.containerEl.innerHTML=""
         let 临时容器=this.containerEl.createEl('div',);
-        临时容器.style.height='100%' //! 不加这句会导致codemirror滚动条消失
+        临时容器.style.height=`100%` //! 不加这句会导致codemirror滚动条消失
         // 临时容器.style.fontFamily="FiraCode NF" //设置字体
         // console.log(`临时容器div的style: ${临时容器.style}`)
         let vueapp = createApp(codemirror) // 创建按钮vue实例
