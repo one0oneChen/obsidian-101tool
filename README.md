@@ -1,4 +1,5 @@
 ~国内可以访问Gitee:https://gitee.com/one0oneChen/obsidian-101tool~
+
 国内gitee:https://gitee.com/ilogistics/obsidian-101tool
 
 **ChangeLog**
@@ -37,7 +38,7 @@ ctrl+p 打开命令面板后, 输入 101 然后会跳出来wiki链接转换命�
 <img src="res/3Deditor.jpg" width="100%" height="100%">
 
 
-#### 功能3 开发中...
+#### 功能 开发中...
 命令面板里其他功能正在开发中, 有时间会完善, 各位挑自己需要的功能使用就好.
 
 enjoy it ~
